@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+</head>
+<body>
+    <header>
+        <h1 class="card-header card-header-title is-centered has-background-primary-dark has-text-white">Weather Dashboard</h1>
+    </header>
+        <section class="columns">
+            <div class="column is-one-fifth columns.is-centered" id="search-div">
+                <p>Search for a City:</p>
+                <input id="search-box" type="text">
+                <button id="search-button" class="button has-background-primary-dark has-text-white">Search</button>
+                <div id="past-searches"></div>
+            </div>
+            <div class="column is-10">
+                <div class="columns is-multiline">
+                    <div class="column is-12" id="current-day-forecast">
+                        Atlanta
+                    </div>
+                    <div class="column is-12" id="five-day-forecast">
+                        5-day Forecast:
+                    </div>
+                </div>
+            </div>
+        </section>
+    
+
+    <script src="./javascript.js" ></script>
+</body>
+</html>
