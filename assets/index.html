@@ -5,8 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./style.css">
+    <script src="./javascript.js" defer></script>
 </head>
-<body>
+<body class="bg-light">
     <header>
         <h1 class="card-header card-header-title is-centered has-background-primary-dark has-text-white is-size-3">Weather Dashboard</h1>
     </header>
@@ -19,8 +21,17 @@
             </div>
             <div class="column is-10">
                 <div class="columns is-multiline">
-                    <div class="column is-12" id="current-day-forecast">
-                        <h1 class="has-text-weight-bold is-size-4" id="city-header"></h1>
+                    <div class="column is-12 py-5" id="current-day-forecast">
+                        <h1 class="has-text-weight-bold is-size-4" id="city-header">
+                            <span id="city"></span><span id="today"></span>
+                            <img id="wicon" src="">
+                        </h1>
+                        <br>
+                        <p id="current-temp"></p>
+                        <br>
+                        <p id="current-wind"></p>
+                        <br>
+                        <p id="current-humidity"></p>
                     </div>
                     <div class="column is-12 is-size-5 has-text-weight-bold" id="five-day-forecast">
                         5-day Forecast:
@@ -30,6 +41,5 @@
         </section>
     
 
-    <script src="./javascript.js" ></script>
 </body>
 </html>
