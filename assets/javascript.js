@@ -1,14 +1,17 @@
 // API key: 9efcb564494f2e20b99f73f7925ec30e
 
-// Search function calls the weather API
-
 var today = new Date();
 var dd = today.getDate();
-var mm = today.getMonth() + 1; //January is 0!
+var mm = today.getMonth() + 1;
 var yyyy = today.getFullYear();
 
 today = mm + '/' + dd + '/' + yyyy;
 document.getElementById("today").textContent = '(' + today + ')';
+
+// Create the buttons when the page is loaded
+window.onload = createButtons;
+
+// calls the geo search and weather API
 
 function getWeather(city) {
     var searchApi = `https://api.openweathermap.org/geo/1.0/direct?q=${city}&limit=1&appid=9efcb564494f2e20b99f73f7925ec30e`;
@@ -19,6 +22,8 @@ function getWeather(city) {
         })
         .then(function (data) {
             console.log(data);
+
+            // grabs latitude and longititude to be used in weather API
             var lat = data[0].lat;
             var lon = data[0].lon;
             console.log(`Latitude: ${lat}, Longitude: ${lon}`);
@@ -86,14 +91,55 @@ function displayForecast(data) {
         };
 };
 
-function addhistoryButton(city) {
-    var pastSearches = document.getElementById('past-searches')
+function createButtons() {
+    // pull existing cities from local storage
+    var pastCities = JSON.parse(localStorage.getItem('past-cities')) || [];
 
-    pastSearches.insertAdjacentHTML('beforeend', `
-    <button class='button past-search-button has-background-primary-light has-text-dark'>${city}</button>
-    `)
+    // Clear the pastSearches container
+    var pastSearches = document.getElementById('past-searches');
+    pastSearches.innerHTML = '';
+
+    // adds a button for each city
+    for (var i = 0; i < pastCities.length; i++) {
+        pastSearches.insertAdjacentHTML('beforeend', `
+        <button class='button past-search-button has-background-primary-light has-text-dark'>${pastCities[i]}</button>
+        `);
+    }
+
+    // attach an event listener to each button
+    var pastSearchButtons = document.querySelectorAll('.past-search-button');
+    pastSearchButtons.forEach(function(button) {
+        button.addEventListener('click', function() {
+            var city = this.textContent;
+            getWeather(city);
+            document.getElementById("city").textContent = city + ' ';
+        });
+    });
 }
 
+
+function addhistoryButton(city) {
+    // Get the existing cities from local storage
+    var pastCities = JSON.parse(localStorage.getItem('past-cities')) || [];
+
+    // Check if there are already 6 cities
+    if(pastCities.length == 6){
+        // Remove the first city if so
+        pastCities.shift();
+    }
+
+    // Add the new city to the array
+    pastCities.push(city);
+
+    // Save the updated cities back to local storage
+    localStorage.setItem('past-cities', JSON.stringify(pastCities));
+
+    // Create the buttons
+    createButtons();
+}
+
+
+// Search function calls the weather API, calls function that adds buton to search history
 
 document.getElementById('search-button').addEventListener('click', function () {
     var searchInput = document.getElementById('search-box').value;
@@ -103,9 +149,5 @@ document.getElementById('search-button').addEventListener('click', function () {
 
     document.getElementById("city").textContent = searchInput + ' ';
 
-    localStorage.setItem('city', searchInput);
-
-    var pastCity = localStorage.getItem('city');
-
-    addhistoryButton(pastCity);
+    addhistoryButton(searchInput);
 });
