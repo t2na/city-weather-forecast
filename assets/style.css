@@ -8,8 +8,3 @@
     border: 1px solid #000000;
   }
   */
-
-  .forecast-cards .column {
-    padding-left: 0.5rem;  /* half of the original padding */
-    padding-right: 0.5rem; /* half of the original padding */
-}
