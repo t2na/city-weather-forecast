@@ -1,5 +1,6 @@
 // API key: 9efcb564494f2e20b99f73f7925ec30e
 
+// copied from FullStack.io
 var today = new Date();
 var dd = today.getDate();
 var mm = today.getMonth() + 1;
